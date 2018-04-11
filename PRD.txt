@@ -1,4 +1,5 @@
 1.创建开发环境：安装服务器iis，安装框架flask，安装flask扩展wfastcgi
 2.创建虚拟环境：安装虚拟环境，进入虚拟环境目录，activate，进入网站目录，运行py文件或命令
 3.Github：New repository，Git：Create new repository，Push：Arbitrary Locations地址为Github中新建的repository
-4.安装flask扩展Flask-Script、Flask-SQLAlchemy
+4.网站基本框架：
+5.安装flask扩展Flask-Script、Flask-SQLAlchemy
