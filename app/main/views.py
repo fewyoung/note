@@ -1,6 +1,6 @@
 from . import main
 #~ from .forms import AddForm, SearchForm, EditForm
-#~ from flask import render_template, session, flash, redirect, url_for
+from flask import render_template#~ from flask import render_template, session, flash, redirect, url_for
 #~ from flask_login import logout_user, login_required
 #~ from ..models import db, Registration_Lan, Registration_Wan
 
@@ -139,5 +139,14 @@ from . import main
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
-	return 'Hello World!'
+	return render_template('base.html')
+
+
+
+
+
+
+
+
+
 
