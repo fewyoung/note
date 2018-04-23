@@ -1,5 +1,5 @@
 from . import main
-#~ from .forms import AddForm, SearchForm, EditForm
+from .forms import TestForm#~ from .forms import AddForm, SearchForm, EditForm
 from flask import render_template#~ from flask import render_template, session, flash, redirect, url_for
 #~ from flask_login import logout_user, login_required
 #~ from ..models import db, Registration_Lan, Registration_Wan
@@ -137,9 +137,12 @@ from flask import render_template#~ from flask import render_template, session, 
 		#~ search_form=search_form, 
 		#~ edit_forms=edit_forms)
 
-@main.route('/', methods=['GET', 'POST'])
+@main.route('/note', methods=['GET', 'POST'])
 def index():
-	return render_template('base.html')
+	test_form = TestForm()
+	if test_form.validate_on_submit():
+		return render_template('main.html', test_form=test_form)
+	return render_template('main.html', test_form=test_form)
 
 
 
