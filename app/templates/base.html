@@ -32,25 +32,25 @@
 					&nbsp;我的笔记</a>
 				</li>
 				
-				{% if 1 %}
+				{% if current_user.is_authenticated %}
 				<li class="navbar-right">	
-					<a href="{{ url_for('main.index') }}" class="text-primary">
+					<a href="{{ url_for('auth.logout') }}" class="text-primary">
 					<span class="glyphicon glyphicon-log-out"></span>
 					&nbsp;退出</a>
 				</li>
 				<li class="navbar-right">					
-					<a href="{{ url_for('main.index') }}" class="text-danger">
+					<a href="{{ url_for('auth.logout') }}" class="text-danger">
 					<span class="glyphicon glyphicon-credit-card"></span>
 					&nbsp;修改</a>
 				</li>
 				{% else %}
 				<li class="navbar-right">
-					<a href="{{ url_for('main.index') }}" class="text-primary">
+					<a href="{{ url_for('auth.login') }}" class="text-primary">
 					<span class="glyphicon glyphicon-log-in"></span>
 					&nbsp;登录</a>					
 				</li>
 				<li class="navbar-right">
-					<a href="{{ url_for('main.index') }}" class="text-danger">
+					<a href="{{ url_for('auth.login') }}" class="text-danger">
 					<span class="glyphicon glyphicon-user"></span>
 					&nbsp;注册</a>
 				</li>	
@@ -65,14 +65,12 @@
 
 {% block content %}
 <div class = "container">
-<!--
 	{% for message in get_flashed_messages() %}
     <div class="alert alert-danger">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <strong>{{ message }}</strong>
     </div>
     {% endfor %}
--->
 	{% block page_content %}{% endblock %}
 </div>
 {% endblock %}
