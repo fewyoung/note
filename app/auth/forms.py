@@ -27,3 +27,29 @@ class RegForm(FlaskForm):
 					EqualTo('regpassword',message='重复密码与密码输入不一致')], 
 		render_kw={"placeholder":"请再输入一次密码"})
 	regsubmit = SubmitField('注册')
+	
+	
+	
+class ModifyForm(FlaskForm):
+	oldpassword = PasswordField('当前密码',
+		validators=[InputRequired(message='当前密码不能为空'),
+					Length(min=4,max=20,message='密码必须介于4-20字符'),], 
+		render_kw={"placeholder":"当前密码"})
+	newpassword = PasswordField('新密码',
+		validators=[InputRequired(message='新密码不能为空'),
+					Length(min=4,max=20,message='密码必须介于4-20字符'),], 
+		render_kw={"placeholder":"新密码"})
+	confirmnewpassword = PasswordField('重复新密码',
+		validators=[InputRequired(message='重复新密码不能为空'),
+					Length(min=4,max=20,message='密码必须介于4-20字符'),
+					EqualTo('newpassword',message='重复新密码与新密码输入不一致')], 
+		render_kw={"placeholder":"请再输入一次新密码"})
+	modifysubmit = SubmitField('确定')
+	
+	
+	
+	
+	
+	
+	
+	

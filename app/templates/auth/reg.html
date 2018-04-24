@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}在线笔记{% endblock %}
+
+
+{% block page_content %}
+
+<div class="page-header">
+    <h1><span class="glyphicon glyphicon-user"></span>&nbsp;注册</h1>
+</div>
+
+<div class="center-block" style="width:400px;">
+	
+	<h1>在线笔记 随身携带</h1>
+	
+	<div class="modal fade" id="reg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">
+						<span class="glyphicon glyphicon-user"></span>
+						&nbsp;注册</h4>
+				</div>
+				<div class="modal-body">{{ wtf.quick_form(reg_form,
+					button_map={'regsubmit':'primary btn-block'}) }}
+				</div>
+				<div class="modal-footer">
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>
+
+
+{% endblock %}
+	
+	
+{% block scripts %}
+{{ super() }}
+
+<script>
+	$('#reg').modal({backdrop: 'static', keyboard: false});
+	$(document).keyup(function(event){
+		if(event.keyCode ==13){
+		$("#regsubmit").trigger("click");
+	}
+});
+</script>
+
+{% endblock %}	
+
+
+
+
+
+
+
+
