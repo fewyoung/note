@@ -1,11 +1,29 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
-from wtforms.validators import InputRequired
+from wtforms.validators import InputRequired, EqualTo, Length
 
 
 class LoginForm(FlaskForm):
-	username = StringField('用户名', validators=[InputRequired(message='用户名不能为空')], 
+	username = StringField('用户名',
+		validators=[InputRequired(message='用户名不能为空')], 
 		render_kw={"placeholder":"用户名"})
-	password = PasswordField('密码', validators=[InputRequired(message='密码不能为空')], 
+	password = PasswordField('密码',
+		validators=[InputRequired(message='密码不能为空')], 
 		render_kw={"placeholder":"密码"})
-	submit = SubmitField('确定')
+	loginsubmit = SubmitField('确定')
+
+
+class RegForm(FlaskForm):
+	regusername = StringField('用户名', 
+		validators=[InputRequired(message='用户名不能为空'),
+					Length(min=4,max=20,message='用户名必须介于4-20字符'),], 
+		render_kw={"placeholder":"用户名"})
+	regpassword = PasswordField('密码',
+		validators=[InputRequired(message='密码不能为空'),
+					Length(min=4,max=20,message='密码必须介于4-20字符'),], 
+		render_kw={"placeholder":"密码"})
+	confirmpassword = PasswordField('重复密码',
+		validators=[InputRequired(message='重复密码不能为空'),
+					EqualTo('regpassword',message='重复密码与密码输入不一致')], 
+		render_kw={"placeholder":"请再输入一次密码"})
+	regsubmit = SubmitField('注册')

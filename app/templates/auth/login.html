@@ -12,27 +12,25 @@
 
 <div class="center-block" style="width:400px;">
 	
-	{% if current_user.is_authenticated %}
-	<button class="btn btn-danger btn-lg" data-toggle="modal" data-target="#logout">
-		<span class="glyphicon glyphicon-credit-card"></span>
-		&nbsp;修改
-	</button>
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<button class="btn btn-danger btn-lg" data-toggle="modal" data-target="#logout">
-		<span class="glyphicon glyphicon-log-out"></span>
-		&nbsp;退出
-	</button>
-	{% else %}
-	<button class="btn btn-success btn-lg" data-toggle="modal" data-target="#login">
-		<span class="glyphicon glyphicon-user"></span>
-		&nbsp;注册
-	</button>
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<button class="btn btn-success btn-lg" data-toggle="modal" data-target="#login">
-		<span class="glyphicon glyphicon-log-in"></span>
-		&nbsp;登录
-	</button>
-	{% endif %}
+	<h1>在线笔记 随身携带</h1>
+	
+	<div class="modal fade" id="reg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel1">
+						<span class="glyphicon glyphicon-user"></span>
+						&nbsp;注册</h4>
+				</div>
+				<div class="modal-body">{{ wtf.quick_form(reg_form,
+					button_map={'regsubmit':'primary btn-block'}) }}
+				</div>
+				<div class="modal-footer">
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
 		<div class="modal-dialog">
@@ -44,9 +42,13 @@
 						&nbsp;登录</h4>
 				</div>
 				<div class="modal-body">{{ wtf.quick_form(login_form,
-					button_map={'submit':'primary btn-block'}) }}
+					button_map={'loginsubmit':'primary btn-block'}) }}
 				</div>
 				<div class="modal-footer">
+					<button class="btn btn-link" data-toggle="modal" data-dismiss="modal" data-target="#reg">
+						<span class="glyphicon glyphicon-user"></span>
+						&nbsp;注册新用户
+					</button>
 				</div>
 			</div>
 		</div>
@@ -83,16 +85,16 @@
 
 {% endblock %}
 	
-
+	
 {% block scripts %}
 {{ super() }}
 {% if current_user.is_authenticated %}
 <script>
-	
+	$('#logout').modal({backdrop: 'static', keyboard: false});
 </script>
 {% else %}
 <script>
-	
+	$('#login').modal({backdrop: 'static', keyboard: false});
 	$('#username').focus();
 	$(document).keyup(function(event){
 		if(event.keyCode ==13){
@@ -101,7 +103,9 @@
 });
 </script>
 {% endif %}
-{% endblock %}
+{% endblock %}	
+
+
 
 
 

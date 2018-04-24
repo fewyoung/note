@@ -34,7 +34,7 @@
 				
 				{% if current_user.is_authenticated %}
 				<li class="navbar-right">	
-					<a href="{{ url_for('auth.logout') }}" class="text-primary">
+					<a href="{{ url_for('auth.login') }}" class="text-primary">
 					<span class="glyphicon glyphicon-log-out"></span>
 					&nbsp;退出</a>
 				</li>
