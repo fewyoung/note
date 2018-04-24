@@ -29,12 +29,11 @@ class RegForm(FlaskForm):
 	regsubmit = SubmitField('注册')
 	
 	
-	
 class ModifyForm(FlaskForm):
-	oldpassword = PasswordField('当前密码',
-		validators=[InputRequired(message='当前密码不能为空'),
+	oldpassword = PasswordField('旧密码',
+		validators=[InputRequired(message='旧密码不能为空'),
 					Length(min=4,max=20,message='密码必须介于4-20字符'),], 
-		render_kw={"placeholder":"当前密码"})
+		render_kw={"placeholder":"旧密码"})
 	newpassword = PasswordField('新密码',
 		validators=[InputRequired(message='新密码不能为空'),
 					Length(min=4,max=20,message='密码必须介于4-20字符'),], 

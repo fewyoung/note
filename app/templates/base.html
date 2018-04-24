@@ -20,39 +20,42 @@
 <div class = "navbar navbar-default" role = "navigation">
 	<div class = "container">
 		<div class = "navbar-header">
-			<a class = "navbar-brand" href = "/">
-				<span class="glyphicon glyphicon-home"></span>
-				&nbsp;Home
-			</a>
+			<ul class = "nav">
+				<li><a class = "navbar-brand" href = "/">
+					<h3><span class="glyphicon glyphicon-home"></span>
+					&nbsp;Home</h3></a>
+				</li>
+			</ul>
 		</div>
+		
 		<div>
 			<ul id="myTab" class = "nav nav-pills">
 				<li><a href = "{{ url_for('main.index') }}">
-					<span class="glyphicon glyphicon-folder-open"></span>
-					&nbsp;我的笔记</a>
+					<h3><span class="glyphicon glyphicon-folder-open"></span>
+					&nbsp;我的笔记</h3></a>
 				</li>
 				
 				{% if current_user.is_authenticated %}
 				<li class="navbar-right">	
 					<a href="{{ url_for('auth.login') }}" class="text-primary">
-					<span class="glyphicon glyphicon-log-out"></span>
-					&nbsp;退出</a>
+					<h3><span class="glyphicon glyphicon-log-out"></span>
+					&nbsp;退出</h3></a>
 				</li>
 				<li class="navbar-right">					
-					<a href="{{ url_for('auth.login') }}" class="text-danger">
-					<span class="glyphicon glyphicon-credit-card"></span>
-					&nbsp;修改</a>
+					<a href="{{ url_for('auth.modify') }}" class="text-warning">
+					<h3><span class="glyphicon glyphicon-lock"></span>
+					&nbsp;密码</h3></a>
 				</li>
 				{% else %}
 				<li class="navbar-right">
 					<a href="{{ url_for('auth.login') }}" class="text-primary">
-					<span class="glyphicon glyphicon-log-in"></span>
-					&nbsp;登录</a>					
+					<h3><span class="glyphicon glyphicon-log-in"></span>
+					&nbsp;登录</h3></a>					
 				</li>
 				<li class="navbar-right">
-					<a href="{{ url_for('auth.reg') }}" class="text-danger">
-					<span class="glyphicon glyphicon-user"></span>
-					&nbsp;注册</a>
+					<a href="{{ url_for('auth.reg') }}" class="text-warning">
+					<h3><span class="glyphicon glyphicon-user"></span>
+					&nbsp;注册</h3></a>
 				</li>	
 				{% endif %}					
 			</ul>
