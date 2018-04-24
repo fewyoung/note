@@ -24,13 +24,6 @@ def login():
 @auth.route('/reg', methods=['GET', 'POST'])
 def reg():
 	reg_form = RegForm()
-	if reg_form.regsubmit.data:
-		if reg_form.regusername.data == '' or reg_form.regpassword.data == '':
-			flash('错误：用户名与密码不能为空')
-		if len(reg_form.regusername.data) < 4 or len(reg_form.regpassword.data) > 20:
-			flash('错误：用户名与密码须介于4-20字符')
-		if reg_form.regpassword.data != reg_form.confirmpassword.data:
-			flash('错误：重复密码与密码输入不一致')
 	if reg_form.regsubmit.data and reg_form.validate_on_submit():
 		user = User()
 		user.username = reg_form.regusername.data
