@@ -8,6 +8,7 @@ class User(UserMixin, db.Model):
 	id = db.Column(db.Integer, primary_key = True)
 	username = db.Column(db.String(20), unique = True, index = True)
 	password_hash = db.Column(db.String(20))
+	user_classifies = db.relationship('Classify', backref='user')
 
 	@property
 	def password(self):
@@ -28,38 +29,16 @@ class User(UserMixin, db.Model):
 		return '<User %r>' % self.username
 
 
-#~ class Registration_Lan(db.Model):
-	#~ __tablename__ = 'registration_lan'
-	#~ id = db.Column(db.Integer, primary_key = True)
-	#~ name = db.Column(db.String(10))
-	#~ department = db.Column(db.String(10))
-	#~ office = db.Column(db.String(10))
-	#~ ip = db.Column(db.String(20), unique = True, index = True)
-	#~ mask = db.Column(db.String(20))
-	#~ gateway = db.Column(db.String(20))
-	#~ vlan = db.Column(db.String(10))
-	#~ port = db.Column(db.String(10))
-	#~ remark = db.Column(db.String(20))
+class Classify(db.Model):
+	__tablename__ = 'classifies'
+	id = db.Column(db.Integer, primary_key = True)
+	classify_name = db.Column(db.String(20))
+	user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 	
-	#~ def __repr__(self):
-		#~ return '<User %r>' % self.name
-	
-	
-#~ class Registration_Wan(db.Model):
-	#~ __tablename__ = 'registration_wan'
-	#~ id = db.Column(db.Integer, primary_key = True)
-	#~ name = db.Column(db.String(10))
-	#~ department = db.Column(db.String(10))
-	#~ office = db.Column(db.String(10))
-	#~ ip = db.Column(db.String(20), unique = True, index = True)
-	#~ mask = db.Column(db.String(20))
-	#~ gateway = db.Column(db.String(20))
-	#~ vlan = db.Column(db.String(10))
-	#~ port = db.Column(db.String(10))
-	#~ remark = db.Column(db.String(20))
-	
-	#~ def __repr__(self):
-		#~ return '<User %r>' % self.name	
+	def __repr__(self):
+		return '<Classify %r>' % self.classify_name
+
+
 	
 	
 	

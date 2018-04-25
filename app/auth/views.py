@@ -40,8 +40,7 @@ def reg():
 def modify():
 	modify_form = ModifyForm()
 	if modify_form.modifysubmit.data and modify_form.validate_on_submit():	
-		user = current_user	
-		if not user.verify_password(modify_form.oldpassword.data):
+		if not current_user.verify_password(modify_form.oldpassword.data):
 			modify_form.oldpassword.errors.append('旧密码输入错误')
 		else:
 			user.password = modify_form.newpassword.data
