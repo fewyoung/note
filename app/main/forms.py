@@ -11,6 +11,7 @@ class ClassifyForm(FlaskForm):
 
 class DelForm(FlaskForm):
 	del_id = HiddenField('id')	
+	del_classify = StringField('分类名')
 	del_submit = SubmitField('删除')	
 	
 	

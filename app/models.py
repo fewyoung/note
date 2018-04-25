@@ -34,12 +34,19 @@ class Classify(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
 	classify_name = db.Column(db.String(20))
 	user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+	classify_notes = db.relationship('Note', backref='classify')
 	
 	def __repr__(self):
 		return '<Classify %r>' % self.classify_name
 
 
-	
+class Note(db.Model):
+	__tablename__ = 'notes'
+	id = db.Column(db.Integer, primary_key = True)
+	note_title = db.Column(db.String(50))
+	note_content = db.Column(db.Text)
+	classify_id = db.Column(db.Integer, db.ForeignKey('classifies.id'))
+		
 	
 	
 	
