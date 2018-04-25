@@ -10,7 +10,6 @@ from ..models import db, Classify
 def index():
 	user_id = current_user.get_id()
 	classify_forms = []
-	classify_form = ClassifyForm()
 	add_form = AddForm()
 		
 	#当前用户所有分类列表	
@@ -19,7 +18,7 @@ def index():
 		classify_form = ClassifyForm()	
 		del_form = DelForm()
 		classify_form.classify_submit.label.text = classify.classify_name
-		del_form.del_id = classify.id
+		del_form.del_id.data = classify.id
 		classify_forms.append([classify_form,del_form])
 		
 	#~ #删除分类
