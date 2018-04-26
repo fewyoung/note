@@ -12,7 +12,8 @@
 </div>
 -->
 
-<div class="container">
+
+<div class="container">	
 	<table class="table table-hover">
 		<thead>
 			<tr>
@@ -43,17 +44,21 @@
 		<tbody>
 		{% for classify_form in classify_forms %}	
 			<tr>
+<!--
 				<td>
 					{{ wtf.quick_form(classify_form,
 						button_map={'classify_submit':'btm btn-primary btn-link'}) }}
 				</td>
+-->
+				<form method="POST">
 				<td>
-					<form method="POST">
-						{{ classify_form.hidden_tag() }}
-						{{ classify_form.classify_submit(class="primary btn-link") }}</td>
-						<td>{{ classify_form.del_submit() }}
-					</form>
+					{{ classify_form.hidden_tag() }}
+					{{ classify_form.classify_submit(class='btm btn-primary btn-link') }}
 				</td>
+				<td>
+					{{ classify_form.del_submit() }}
+				</td>
+				</form>
 			</tr>
 		{% endfor %}
 		</tbody>

@@ -9,12 +9,6 @@ class ClassifyForm(FlaskForm):
 	classify_submit = SubmitField('')
 	del_submit = SubmitField('删除')	
 	
-
-#~ class DelForm(FlaskForm):
-	#~ del_id = HiddenField('id')	
-	#~ del_classify = StringField('分类名')
-	#~ del_submit = SubmitField('删除')	
-	
 	
 class AddForm(FlaskForm):
 	add_name = StringField('分类名', 
