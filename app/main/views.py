@@ -1,5 +1,5 @@
 from . import main
-from .forms import ClassifyForm, AddForm, DelForm
+from .forms import ClassifyForm, AddForm#, DelForm
 from flask import render_template#~ from flask import render_template, session, flash, redirect, url_for
 from flask_login import login_required, current_user
 from ..models import db, Classify
@@ -10,13 +10,14 @@ from ..models import db, Classify
 def index():
 	user_id = current_user.get_id()
 						
-	#删除分类
-	del_form = DelForm()
-	if del_form.del_submit.data and del_form.validate_on_submit(): 
+	#删除分类	
+	classify_form = ClassifyForm()
+	if classify_form.del_submit.data and classify_form.validate_on_submit():
 		del_classify = Classify.query.filter_by(
-			id = del_form.del_id.data).first()
+			id = classify_form.classify_id.data).first()
 		db.session.delete(del_classify)
-		db.session.commit()	
+		db.session.commit()
+	
 											
 	#新分类,未检测同名
 	add_form = AddForm()	
@@ -33,11 +34,9 @@ def index():
 	classifies = Classify.query.filter_by(user_id=user_id).order_by(Classify.id.desc())	
 	for classify in classifies:	
 		classify_form_temp = ClassifyForm()	
-		del_form_temp = DelForm()
 		classify_form_temp.classify_submit.label.text = classify.classify_name
-		del_form_temp.del_classify.data = classify.classify_name
-		del_form_temp.del_id.data = classify.id
-		classify_forms.append([classify_form_temp,del_form_temp])
+		classify_form_temp.classify_id.data = classify.id
+		classify_forms.append(classify_form_temp)
 		
 	return render_template('main.html',
 							classify_forms=classify_forms,
