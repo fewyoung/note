@@ -6,6 +6,11 @@ from flask_login import login_user, logout_user, login_required, current_user
 
 
 @auth.route('/', methods=['GET', 'POST'])
+def index():
+	return redirect(url_for('auth.login'))
+
+
+@auth.route('/auth/login', methods=['GET', 'POST'])
 def login():			
 	login_form = LoginForm()
 	if login_form.loginsubmit.data and login_form.validate_on_submit():
@@ -14,14 +19,14 @@ def login():
 			login_user(user)
 			next = request.args.get('next')
 			if next is None or not next.startswith('/'):
-				next = url_for('main.index')
+				next = url_for('main.note')
 			return redirect(next)
 		else:
 			login_form.password.errors.append('无效的用户名或密码')
 	return render_template('auth/login.html',login_form=login_form)		
 
 
-@auth.route('/reg', methods=['GET', 'POST'])
+@auth.route('/auth/reg', methods=['GET', 'POST'])
 def reg():
 	reg_form = RegForm()
 	if reg_form.regsubmit.data and reg_form.validate_on_submit():
@@ -35,7 +40,7 @@ def reg():
 	return render_template('auth/reg.html',reg_form=reg_form)
 							
 
-@auth.route('/modify', methods=['GET', 'POST'])
+@auth.route('/auth/modify', methods=['GET', 'POST'])
 @login_required
 def modify():
 	modify_form = ModifyForm()
@@ -52,7 +57,7 @@ def modify():
 	return render_template('auth/modify.html',modify_form=modify_form)
 
 	
-@auth.route('/logout')
+@auth.route('/auth/logout')
 @login_required
 def logout():
 	logout_user()

@@ -12,9 +12,8 @@
 </div>
 -->
 
-
 <div class="container">	
-	<table class="table table-hover">
+	<table class="table table-hover" style="max-width:300px">
 		<thead>
 			<tr>
 				<th colspan=2>
@@ -42,27 +41,39 @@
 			</tr>
 		</thead>
 		<tbody>
-		{% for classify_form in classify_forms %}	
+		{% for classify_form in classify_forms %}
 			<tr>
-<!--
-				<td>
-					{{ wtf.quick_form(classify_form,
-						button_map={'classify_submit':'btm btn-primary btn-link'}) }}
-				</td>
--->
-				<form method="POST">
-				<td>
-					{{ classify_form.hidden_tag() }}
-					{{ classify_form.classify_submit(class='btm btn-primary btn-link') }}
-				</td>
-				<td>
-					{{ classify_form.del_submit() }}
-				</td>
-				</form>
-			</tr>
+											
+					<td>
+							<ul class="nav nav-pills">	<li>					
+							<a id="classify" href="/note" value="">
+								{{ classify_form.classify_id.data }}
+							</a>
+						
+					</td></li>										
+					<li><td>
+																
+							<a id="del" href="/note/del" value="">
+								<span class="glyphicon glyphicon-trash"></span>
+							</a>						
+						</li></ul>
+					</td>
+				
+			</tr>		
 		{% endfor %}
 		</tbody>
-	</table>					
+	</table>	
+	
+	<div class="list-group">
+		{% for classify_form in classify_forms %}
+			<a id="classify" href="/note" value="" class="list-group-item" style="max-width:100px">
+				{{ classify_form.classify_id.data }}
+			</a>
+										<a id="del" href="/note/del" value="">
+								<span class="glyphicon glyphicon-trash"></span>
+							</a>
+		{% endfor %}		
+	</div>					
 </div>
 {% endblock %}
 
@@ -71,10 +82,24 @@
 {{ super() }}
 
 <script>
-	$(document).ready(function(){
+$(document).ready(function(){
   $("button#del_button").click(function(){
     alert("确认删除？"+$(this).val())
   });
+  
+  $("a#classify,a#del").mouseover(function(){
+    $(this).css("background-color","yellow");
+  });
+    
+  $("a#classify,a#del").mouseout(function(){
+    $(this).css("background-color","");
+  });  
+  
+  $("a#classify,a#del").click(function(event){
+    $(this).parent().addClass('active'); 
+    event.preventDefault();
+  });
+  
 });
 </script>
 

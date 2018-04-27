@@ -7,7 +7,7 @@ from ..models import db, Classify
 
 @main.route('/note', methods=['GET', 'POST'])
 @login_required
-def index():
+def note():
 	user_id = current_user.get_id()
 						
 	#删除分类	
@@ -38,12 +38,15 @@ def index():
 		classify_form_temp.classify_id.data = classify.id
 		classify_forms.append(classify_form_temp)
 		
-	return render_template('main.html',
-							classify_forms=classify_forms,
-							add_form=add_form)
+	return render_template('note.html',
+							add_form=add_form,
+							classify_forms=classify_forms)
 
 
-
+@main.route('/note/del', methods=['GET', 'POST'])
+@login_required
+def del_note():
+	return "del_note"
 
 
 
