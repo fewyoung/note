@@ -37,23 +37,23 @@
 				
 				{% if current_user.is_authenticated %}
 				<li class="navbar-right">	
-					<a href="{{ url_for('auth.login') }}" class="text-primary">
+					<a id="nav" href="{{ url_for('auth.login') }}" class="text-primary">
 					<h4><span class="glyphicon glyphicon-log-out"></span>
 					&nbsp;退出</h4></a>
 				</li>
 				<li class="navbar-right">					
-					<a href="{{ url_for('auth.modify') }}" class="text-warning">
+					<a id="nav" href="{{ url_for('auth.modify') }}" class="text-warning">
 					<h4><span class="glyphicon glyphicon-lock"></span>
 					&nbsp;密码</h4></a>
 				</li>
 				{% else %}
 				<li class="navbar-right">
-					<a href="{{ url_for('auth.login') }}" class="text-primary">
+					<a id="nav" href="{{ url_for('auth.login') }}" class="text-primary">
 					<h4><span class="glyphicon glyphicon-log-in"></span>
 					&nbsp;登录</h3></a>					
 				</li>
 				<li class="navbar-right">
-					<a href="{{ url_for('auth.reg') }}" class="text-warning">
+					<a id="nav" href="{{ url_for('auth.reg') }}" class="text-warning">
 					<h4><span class="glyphicon glyphicon-user"></span>
 					&nbsp;注册</h4></a>
 				</li>	
@@ -99,7 +99,7 @@
 -->
 <script>
 	$(document).ready(function(){
-		$('.nav-pills').find('a').each(function(){
+		$('.nav-pills').find('a#nav').each(function(){
 			if (this.href == document.location.href){
 				$(this).parent().addClass('active');
 				};
