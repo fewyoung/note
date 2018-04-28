@@ -42,38 +42,21 @@
 		</thead>
 		<tbody>
 		{% for classify_form in classify_forms %}
-			<tr>
-											
-					<td>
-							<ul class="nav nav-pills">	<li>					
-							<a id="classify" href="/note" value="">
-								{{ classify_form.classify_id.data }}
-							</a>
-						
-					</li></ul></td>										
-					<td>
-							<ul class="nav nav-pills">	<li>									
-							<a id="del" href="/note/del" value="">
-								<span class="glyphicon glyphicon-trash"></span>
-							</a>						
-						</li></ul>
-					</td>
-				
+			<tr class="active">											
+				<td>					
+					<a id="classify" style="cursor:pointer;text-decoration:none;" value="{{ classify_form.classify_id.data }}">
+						{{ classify_form.classify_submit.label.text }}
+					</a>					
+				</td>										
+				<td>																
+					<a id="del" style="cursor:pointer;" value="{{ classify_form.classify_id.data }}"">
+						<span class="glyphicon glyphicon-trash"></span>
+					</a>						
+				</td>				
 			</tr>		
 		{% endfor %}
 		</tbody>
-	</table>	
-	
-	<div class="list-group">
-		{% for classify_form in classify_forms %}
-			<a id="classify" href="/note" value="" class="list-group-item" style="max-width:100px">
-				{{ classify_form.classify_id.data }}
-			</a>
-										<a id="del" href="/note/del" value="">
-								<span class="glyphicon glyphicon-trash"></span>
-							</a>
-		{% endfor %}		
-	</div>					
+	</table>							
 </div>
 {% endblock %}
 
@@ -83,15 +66,15 @@
 
 <script>
 $(document).ready(function(){
-  $("button#del_button").click(function(){
-    alert("确认删除？"+$(this).val())
-  });
-  
- 
-  $("a#classify,a#del").click(function(event){
-    $(this).parent().addClass('active'); 
-    event.preventDefault();
-  });
+	     
+  $("a#del").click(function(){
+	  var del_conf = confirm("分类名：\n"+$(this).val()+"\n\n确认删除？");
+	  if (del_conf){
+		  $.post("/note/del",function(data,status){
+			  alert(data);
+			  });		  
+		  };							  
+	  });
   
 });
 </script>
