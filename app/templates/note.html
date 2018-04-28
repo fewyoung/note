@@ -6,11 +6,6 @@
 
 {% block page_content %}
 
-<!--
-<div class="page-header">
-
-</div>
--->
 
 <div class="container">	
 	<table class="table table-hover" style="max-width:300px">
@@ -40,11 +35,11 @@
 				</th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody>				
 		{% for classify_form in classify_forms %}
 			<tr class="active">											
 				<td>					
-					<a id="classify" style="cursor:pointer;text-decoration:none;" value="{{ classify_form.classify_id.data }}">
+					<a id="classify" style="color:black;cursor:pointer;text-decoration:none;" value="{{ classify_form.classify_id.data }}">
 						{{ classify_form.classify_submit.label.text }}
 					</a>					
 				</td>										
@@ -58,6 +53,10 @@
 		</tbody>
 	</table>							
 </div>
+
+<div id="tt">
+
+</div>
 {% endblock %}
 
 
@@ -70,8 +69,10 @@ $(document).ready(function(){
   $("a#del").click(function(){
 	  var del_conf = confirm("分类名：\n"+$(this).val()+"\n\n确认删除？");
 	  if (del_conf){
-		  $.post("/note/del",function(data,status){
-			  alert(data);
+		  $.post("/note/del",{del_id:$(this).val()},function(data,status){
+			  		  
+			  $("table").load("/note table")
+			  				 
 			  });		  
 		  };							  
 	  });

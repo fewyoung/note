@@ -1,6 +1,6 @@
 from . import main
 from .forms import ClassifyForm, AddForm#, DelForm
-from flask import render_template#~ from flask import render_template, session, flash, redirect, url_for
+from flask import render_template, request, redirect, url_for#~ from flask import session, flash
 from flask_login import login_required, current_user
 from ..models import db, Classify
 
@@ -46,7 +46,15 @@ def note():
 @main.route('/note/del', methods=['GET', 'POST'])
 @login_required
 def del_note():
-	return "del_note"
+	del_id = request.values.get('del_id')
+	classify_del = Classify.query.filter_by(id = del_id).first()
+	if classify_del:
+		db.session.delete(classify_del)
+		db.session.commit()
+	else:
+		pass	
+	return redirect(url_for('main.note'))
+	#~ return "true"
 
 
 
