@@ -59,7 +59,7 @@ def classify():
 		if classify_del:
 			db.session.delete(classify_del)
 			db.session.commit()
-	add_form, pagination = add_classify_forms()			
+	add_form = AddForm()		
 	#新增分类，未检测分类名
 	user_id = current_user.get_id()
 	add_name = request.values.get('add_name')
@@ -73,6 +73,8 @@ def classify():
 		classify_add.user_id = user_id
 		db.session.add(classify_add)
 		db.session.commit()	
+	#必须放在最后，否则不是删除或者增加后的查询结果
+	add_form, pagination = add_classify_forms()
 	return render_template('classify.html',
 							add_form = add_form,
 							pagination = pagination)
