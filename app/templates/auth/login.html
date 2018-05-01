@@ -14,7 +14,7 @@
 	
 	<h1>在线笔记 随身携带</h1>
 	
-	<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+	<div class="modal fade" id="login" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -71,17 +71,17 @@
 {{ super() }}
 {% if current_user.is_authenticated %}
 <script>
-	$('#logout').modal({backdrop: 'static', keyboard: false});
+	$('#logout').modal();
 </script>
 {% else %}
 <script>
-	$('#login').modal({backdrop: 'static', keyboard: false});
+	$('#login').modal();
 	$('#username').focus();
 	$(document).keyup(function(event){
 		if(event.keyCode ==13){
 		$("#loginsubmit").trigger("click");
-	}
-});
+		}
+	});
 </script>
 {% endif %}
 {% endblock %}	

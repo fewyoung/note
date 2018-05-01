@@ -6,7 +6,7 @@ from wtforms.validators import InputRequired, ValidationError, Length
 	
 class ClassifyForm(FlaskForm):
 	classify_id = HiddenField('id')
-	classify_submit = SubmitField('')
+	classify_name = StringField('分类名')
 	del_submit = SubmitField('删除')	
 	
 	

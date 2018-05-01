@@ -1,17 +1,18 @@
 
+{% import "bootstrap/wtf.html" as wtf %}
 
-<div id="#tablediv">
-	<table class="table table-hover" style="max-width:300px">
+<div id="table_div">
+	<table class="table table-hover" style="max-width:350px">
 		<thead>
-			<tr>
+			<tr class="active">
 				<th>	
 					我的分类
 				</th>		
 				<th>	
-					<button class="btn btn-xs btn-link" data-toggle="modal" data-target="#add" title="新分类">
+					<button class="btn btn-xs btn-link"  data-toggle="modal" data-target="#add" title="新分类">
 						<span class="glyphicon glyphicon-plus">&nbsp;新分类</span>
 					</button>
-					<div class="modal fade" id="add" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel_add" aria-hidden="true">
+					<div class="modal fade" id="add" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel_add" aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">
@@ -20,8 +21,9 @@
 										<span class="glyphicon glyphicon-plus"></span>
 										&nbsp;新分类</h4>
 								</div>
-								<div class="modal-body">{{ wtf.quick_form(add_form,
-									button_map={'add_submit':'primary btn-block'}) }}
+								<div id="tt" class="modal-body">{{ wtf.quick_form(add_form,
+									button_map={'add_submit':'primary btn-block'},
+									id="form_add") }}
 								</div>
 								<div class="modal-footer">
 								</div>
@@ -32,23 +34,57 @@
 			</tr>
 		</thead>
 		<tbody>				
-		{% for classify_form in classify_forms %}
+		{% for p in pagination.items %}
 			<tr class="active">											
-				<td>					
-					<a id="classify" style="color:black;cursor:pointer;text-decoration:none;" value="{{ classify_form.classify_id.data }}">
-						{{ classify_form.classify_submit.label.text }}
+				<td style="width:320px">					
+					<a id="classify" style="color:black;cursor:pointer;text-decoration:none;" value="{{ p.id }}" title="查看分类">
+						{{ p.classify_name }}
 					</a>					
 				</td>										
-				<td>																
-					<a id="del" style="cursor:pointer;" value="{{ classify_form.classify_id.data }}">
-						&nbsp;<span class="glyphicon glyphicon-trash"></span>
-					</a>						
+				<td>
+					<a id="edit" style="cursor:pointer;" value="{{ p.id }}" title="修改分类名">
+						<span class="glyphicon glyphicon-edit"></span>
+					</a>
+					&nbsp;&nbsp;																
+					<a id="del" style="cursor:pointer;" value="{{ p.id }}" title="删除分类">
+						<span class="glyphicon glyphicon-trash"></span>
+					</a>																
 				</td>				
 			</tr>		
 		{% endfor %}
-		</tbody>
+			<tr>
+				<td colspan=2>
+					<ul class="pagination">
+						<li{% if not pagination.has_prev %} class="disabled"{% endif %}>
+							<a href="{% if pagination.has_prev %}prev{% else %}#{% endif %}">
+								&laquo;
+							</a>
+						</li>
+						{% for p in pagination.iter_pages(left_edge=1,left_current=1,right_current=2,right_edge=1) %}
+						{% if p %}
+							{% if p == pagination.page %}
+								<li class="active">
+									<a href="2">{{ p }}</a>
+								</li>
+							{% else %}
+								<li>
+									<a href="3">{{ p }}</a>
+								</li>
+							{% endif %}
+						{% else %}
+						<li class="disabled"><a href="#">&hellip;</a></li>
+						{% endif %}
+						{% endfor %}
+						<li{% if not pagination.has_next %} class="disabled"{% endif %}>
+							<a href="{% if pagination.has_next %}next{% else %}#{% endif %}">
+								&raquo;
+							</a>
+						</li>
+					</ul>
+				</td>				
+			</tr>
 	</table>
-</div>
+</div>		
 
 
 
