@@ -28,7 +28,10 @@ $(document).ready(function(){
 		  $.post("/note/classify",{del_id:$(this).val()},function(data,status){		  
 			  $("div#table_div").remove();
 			  $("div#classify").html(data);			 
-			  });		  
+			  });
+			  //load方法第一个会有延迟，后面的会有闪烁	
+			  //~ $("div#table_div").remove();	 
+			  //~ $("div#classify").load("/note/classify",{del_id:$(this).val()}); 
 		  };							  
 	  });
   //添加分类
