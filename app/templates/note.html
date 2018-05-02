@@ -6,7 +6,7 @@
 
 {% block page_content %}
 
-<div id="classify" class="container">
+<div id="classify_div" class="container">
 	{% include 'classify.html' %}					
 </div>
 
@@ -22,14 +22,14 @@ $(document).ready(function(){
   //禁用缓存，以获取修改后的结果
   $.ajaxSetup({cache: false});
   //删除分类
-  $("div#classify").on("click","a#del",function(){
+  $("div#classify_div").on("click","a#classify_del",function(){
 	  var conf_del = confirm("删除分类将删除该分类的所有文章！\n\n确认删除？");
 	  if (conf_del){
-		  $.post("/note/classify",{del_id:$(this).val()},function(data,status){		  
-			  $("div#table_div").remove();
-			  $("div#classify").html(data);			 
+		  $.post("/note/classify",{del_id:$(this).val(),page_id:$("li#classify_active").val()},function(data,status){		  
+			  $("div#classify_table").remove();
+			  $("div#classify_div").html(data);			 
 			  });
-			  //load方法第一个会有延迟，后面的会有闪烁	
+			  //load方法刚开始有延迟，后面的会有闪烁	
 			  //~ $("div#table_div").remove();	 
 			  //~ $("div#classify").load("/note/classify",{del_id:$(this).val()}); 
 		  };							  
@@ -38,7 +38,7 @@ $(document).ready(function(){
   //click方法无法阻止回车键提交表单
   //$("input#add_submit").click(function(event){
   //submit方法不能给未来元素绑定方法	  
-  $("div#classify").on("submit","form#form_add",function(event){
+  $("div#classify_div").on("submit","form#form_add",function(event){
 	  event.preventDefault();
 	  $("div#add").modal("hide");
 	  //IE低版本不支持FormData
@@ -48,13 +48,21 @@ $(document).ready(function(){
 	  //提交整个表单 
 	  var form_add=$(this).serialize();		  
 	  $.post("/note/classify",form_add,function(data,status){
-		  $("div#table_div").remove();
-		  $("div#classify").html(data);
-		  //新增分类背景色
-		  //alert($(data).find("a#classify").text())
-		  //$("a#classify:first").parent().parent().addClass("info")
+		  $("div#classify_table").remove();
+		  $("div#classify_div").html(data);
 		  });
-	  });		   
+	  });	
+  //选择分类添加背景色
+  $("div#classify_div").on("click","tr#classify_tr",function(){
+	  $(this).addClass("info").siblings().removeClass("info");
+  });
+  //分页
+  $("div#classify_div").on("click","a#classify_page",function(event){
+	  $.post("/note/classify",{page_id:$(this).val()},function(data,status){		  
+		  $("div#classify_table").remove();
+		  $("div#classify_div").html(data);			 
+		  });	  
+  });  	   
 });
 </script>
 

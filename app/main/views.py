@@ -5,8 +5,8 @@ from flask_login import login_required, current_user
 from ..models import db, Classify
 
 
-#添加分类表单、所有分类表单列表
-def add_classify_forms():		
+#分类列表：[添加表单,分页对象]
+def add_classify_forms(page):		
 	user_id = current_user.get_id()		
 	#无分页查询
 	#classify_forms = []
@@ -16,12 +16,11 @@ def add_classify_forms():
 		#~ classify_form_temp.classify_name.data = classify.classify_name
 		#~ classify_form_temp.classify_id.data = classify.id
 		#~ classify_forms.append(classify_form_temp)		
-	#分页查询
-	page = request.values.get('page', default=8, type=int)
+	#分页查询	
 	pagination = Classify.query.filter_by(
 		user_id=user_id).order_by(
 		Classify.id.desc()).paginate(
-		page, per_page=3,error_out=False)
+		page, per_page=10,error_out=False)
 	page_items = pagination.items	
 	add_form = AddForm()	
 	#~ return (add_form,classify_forms)
@@ -29,8 +28,8 @@ def add_classify_forms():
 
 
 #添加分类表单、所有分类表单列表、所有笔记表单列表、内容表单
-def add_classify_article_content_forms():
-	add_form, pagination = add_classify_forms()	
+def add_classify_article_content_forms(page):
+	add_form, pagination = add_classify_forms(page)	
 	article_forms = []
 	content_form = None		
 	return (add_form, pagination, article_forms, content_form)
@@ -42,7 +41,7 @@ def note():
 	(add_form,
 	pagination,
 	article_forms,
-	content_form) = add_classify_article_content_forms()
+	content_form) = add_classify_article_content_forms(page=1)
 	return render_template('note.html', add_form = add_form,
 							pagination = pagination,
 							article_forms = article_forms,
@@ -73,8 +72,9 @@ def classify():
 		classify_add.user_id = user_id
 		db.session.add(classify_add)
 		db.session.commit()	
+	page = request.values.get('page_id', default=1, type=int)
 	#必须放在最后，否则不是删除或者增加后的查询结果
-	add_form, pagination = add_classify_forms()
+	add_form, pagination = add_classify_forms(page)
 	return render_template('classify.html',
 							add_form = add_form,
 							pagination = pagination)

@@ -1,7 +1,7 @@
 
 {% import "bootstrap/wtf.html" as wtf %}
 
-<div id="table_div">
+<div id="classify_table">
 	<table class="table table-hover" style="max-width:350px">
 		<thead>
 			<tr class="active">
@@ -35,18 +35,18 @@
 		</thead>
 		<tbody>				
 		{% for p in pagination.items %}
-			<tr class="active">											
+			<tr id="classify_tr" class="active">											
 				<td style="width:320px">					
-					<a id="classify" style="color:black;cursor:pointer;text-decoration:none;" value="{{ p.id }}" title="查看分类">
+					<a id="classify_name" style="color:black;cursor:pointer;text-decoration:none;" value="{{ p.id }}" title="查看分类">
 						{{ p.classify_name }}
 					</a>					
 				</td>										
 				<td>
-					<a id="edit" style="cursor:pointer;" value="{{ p.id }}" title="修改分类名">
+					<a id="classify_edit" style="cursor:pointer;" value="{{ p.id }}" title="修改分类名">
 						<span class="glyphicon glyphicon-edit"></span>
 					</a>
 					&nbsp;&nbsp;																
-					<a id="del" style="cursor:pointer;" value="{{ p.id }}" title="删除分类">
+					<a id="classify_del" style="cursor:pointer;" value="{{ p.id }}" title="删除分类">
 						<span class="glyphicon glyphicon-trash"></span>
 					</a>																
 				</td>				
@@ -57,27 +57,27 @@
 					<ul class="pagination">
 						<li{% if not pagination.has_prev %} class="disabled"{% endif %}>
 							<a href="{% if pagination.has_prev %}prev{% else %}#{% endif %}">
-								&laquo;
+								&lt;
 							</a>
 						</li>
 						{% for p in pagination.iter_pages(left_edge=1,left_current=1,right_current=2,right_edge=1) %}
 						{% if p %}
 							{% if p == pagination.page %}
-								<li class="active">
-									<a href="2">{{ p }}</a>
+								<li id="classify_active" class="active" value="{{ p }}">
+									<a id="classify_page" value="{{ p }}" style="cursor:pointer;">{{ p }}</a>
 								</li>
 							{% else %}
 								<li>
-									<a href="3">{{ p }}</a>
+									<a id="classify_page" value="{{ p }}" style="cursor:pointer;">{{ p }}</a>
 								</li>
 							{% endif %}
 						{% else %}
-						<li class="disabled"><a href="#">&hellip;</a></li>
+						<li><a>&hellip;</a></li>
 						{% endif %}
 						{% endfor %}
 						<li{% if not pagination.has_next %} class="disabled"{% endif %}>
 							<a href="{% if pagination.has_next %}next{% else %}#{% endif %}">
-								&raquo;
+								&gt;
 							</a>
 						</li>
 					</ul>
