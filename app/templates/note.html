@@ -14,10 +14,8 @@
 
 
 {% block scripts %}
-
 {{ super() }}
-
-<script>	
+<script>
 $(document).ready(function(){
   //禁用缓存，以获取修改后的结果
   $.ajaxSetup({cache: false});
@@ -25,7 +23,7 @@ $(document).ready(function(){
   $("div#classify_div").on("click","a#classify_del",function(){
 	  var conf_del = confirm("删除分类将删除该分类的所有文章！\n\n确认删除？");
 	  if (conf_del){
-		  $.post("/note/classify",{del_id:$(this).val(),page_id:$("li#classify_active").val()},function(data,status){		  
+		  $.post("/note/classify",{classify_del_id:$(this).val(),page_id:$("li#classify_active").val()},function(data,status){		  
 			  $("div#classify_table").remove();
 			  $("div#classify_div").html(data);			 
 			  });
@@ -38,7 +36,7 @@ $(document).ready(function(){
   //click方法无法阻止回车键提交表单
   //$("input#add_submit").click(function(event){
   //submit方法不能给未来元素绑定方法	  
-  $("div#classify_div").on("submit","form#form_add",function(event){
+  $("div#classify_div").on("submit","form#classify_add",function(event){
 	  event.preventDefault();
 	  $("div#add").modal("hide");
 	  //IE低版本不支持FormData
@@ -46,26 +44,25 @@ $(document).ready(function(){
 	  //只提交数据，不会经过validate
 	  //$.post("/note/classify",{add_name:$("input#add_name").val()},function(data,status){
 	  //提交整个表单 
-	  var form_add=$(this).serialize();		  
-	  $.post("/note/classify",form_add,function(data,status){
+	  var classify_add_form=$(this).serialize();		  
+	  $.post("/note/classify", classify_add_form, function(data,status){
 		  $("div#classify_table").remove();
 		  $("div#classify_div").html(data);
 		  });
 	  });	
-  //选择分类添加背景色
+  //选择分类，添加背景色
   $("div#classify_div").on("click","tr#classify_tr",function(){
 	  $(this).addClass("info").siblings().removeClass("info");
   });
-  //分页
+  //选择分页
   $("div#classify_div").on("click","a#classify_page",function(event){
-	  $.post("/note/classify",{page_id:$(this).val()},function(data,status){		  
+	  $.post("/note/classify",{classify_page_id:$(this).val()},function(data,status){		  
 		  $("div#classify_table").remove();
 		  $("div#classify_div").html(data);			 
 		  });	  
   });  	   
 });
 </script>
-
 {% endblock %}
 
 

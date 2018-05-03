@@ -21,9 +21,9 @@
 										<span class="glyphicon glyphicon-plus"></span>
 										&nbsp;新分类</h4>
 								</div>
-								<div class="modal-body">{{ wtf.quick_form(add_form,
-									button_map={'add_submit':'primary btn-block'},
-									id="form_add") }}
+								<div class="modal-body">{{ wtf.quick_form(classify_add_form,
+									button_map={'classify_add_submit':'primary btn-block'},
+									id="classify_add") }}
 								</div>
 								<div class="modal-footer">
 								</div>
@@ -34,11 +34,11 @@
 			</tr>
 		</thead>
 		<tbody>				
-		{% for p in pagination.items %}
+		{% for p in classify_pagination.items %}
 			<tr id="classify_tr" class="active">											
 				<td style="width:320px">					
 					<a id="classify_name" style="color:black;cursor:pointer;text-decoration:none;" value="{{ p.id }}" title="查看分类">
-						{{ p.classify_name }}
+						{{ p.classify_classify_name }}
 					</a>					
 				</td>										
 				<td>
@@ -55,14 +55,14 @@
 			<tr>
 				<td colspan=2>
 					<ul class="pagination">
-						<li{% if not pagination.has_prev %} class="disabled"{% endif %}>
-							<a href="{% if pagination.has_prev %}prev{% else %}#{% endif %}">
+						<li>
+							<a id="classify_page" style="cursor:pointer;" value="{{ pagination.page-1 }}">
 								&lt;
 							</a>
 						</li>
-						{% for p in pagination.iter_pages(left_edge=1,left_current=1,right_current=2,right_edge=1) %}
+						{% for p in classify_pagination.iter_pages(left_edge=1,left_current=1,right_current=2,right_edge=1) %}
 						{% if p %}
-							{% if p == pagination.page %}
+							{% if p == classify_pagination.page %}
 								<li id="classify_active" class="active" value="{{ p }}">
 									<a id="classify_page" value="{{ p }}" style="cursor:pointer;">{{ p }}</a>
 								</li>
@@ -75,8 +75,8 @@
 						<li><a>&hellip;</a></li>
 						{% endif %}
 						{% endfor %}
-						<li{% if not pagination.has_next %} class="disabled"{% endif %}>
-							<a href="{% if pagination.has_next %}next{% else %}#{% endif %}">
+						<li>
+							<a id="classify_page" style="cursor:pointer;" value="{{ pagination.page+1 }}">
 								&gt;
 							</a>
 						</li>
