@@ -5,11 +5,23 @@
 
 
 {% block page_content %}
-
-<div id="classify_div" class="container">
-	{% include 'classify.html' %}					
+<div class="container">
+	<table>
+		<tbody>
+			<tr>
+				<td>
+					<div id="classify_div">
+						{% include 'classify.html' %}					
+					</div>
+				</td>
+				<td>
+					<div id="title_div">
+						{% include 'title.html' %}	
+				</td>
+			</tr>
+		</tbody>
+	</table>
 </div>
-
 {% endblock %}
 
 
@@ -38,7 +50,7 @@ $(document).ready(function(){
   //submit方法不能给未来元素绑定方法	  
   $("div#classify_div").on("submit","form#classify_add",function(event){
 	  event.preventDefault();
-	  $("div#add").modal("hide");
+	  $("div#classify_add").modal("hide");
 	  //IE低版本不支持FormData
 	  //var  form_add = new FormData($("form#form_add")[0]); 
 	  //只提交数据，不会经过validate

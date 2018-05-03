@@ -6,24 +6,24 @@
 		<thead>
 			<tr class="active">
 				<th>	
-					我的分类
+					我的日记
 				</th>		
 				<th>	
-					<button class="btn btn-xs btn-link"  data-toggle="modal" data-target="#classify_add" title="新分类">
-						<span class="glyphicon glyphicon-plus">&nbsp;新分类</span>
+					<button class="btn btn-xs btn-link"  data-toggle="modal" data-target="#title_add" title="新日记">
+						<span class="glyphicon glyphicon-plus">&nbsp;新日记</span>
 					</button>
-					<div class="modal fade" id="classify_add" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel_classify_add" aria-hidden="true">
+					<div class="modal fade" id="title_add" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel_title_add" aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-									<h4 class="modal-title" id="myModalLabel_classify_add">
+									<h4 class="modal-title" id="myModalLabel_title_add">
 										<span class="glyphicon glyphicon-plus"></span>
-										&nbsp;新分类</h4>
+										&nbsp;新日记</h4>
 								</div>
-								<div class="modal-body">{{ wtf.quick_form(classify_add_form,
-									button_map={'classify_add_submit':'primary btn-block'},
-									id="classify_add") }}
+								<div class="modal-body">{{ wtf.quick_form(title_add_form,
+									button_map={'title_add_submit':'primary btn-block'},
+									id="title_add") }}
 								</div>
 								<div class="modal-footer">
 								</div>
