@@ -7,7 +7,7 @@ from ..models import db, Classify, Note
 
 #分类区域：[添加分类表单,所有分类的分页对象]
 def classify_area(classify_page):		
-	user_id = current_user.get_id()			
+	user_id = current_user.get_id()					
 	#分页对象	
 	classify_pagination = Classify.query.filter_by(
 		user_id=user_id).order_by(
@@ -20,16 +20,14 @@ def classify_area(classify_page):
 
 #标题区域：[添加标题表单,所有标题的分页对象]
 def title_area(classify_id, title_page):				
-	#分页对象
-	if classify_id:	
-		title_pagination = Note.query.filter_by(
-			classify_id=classify_id).order_by(
-			Note.id.desc()).paginate(
-			title_page, per_page=10,error_out=False)
-	else:
-		title_pagination = None
+	title_pagination = Note.query.filter_by(
+		classify_id=classify_id).order_by(
+		Note.id.desc()).paginate(
+		title_page, per_page=10,error_out=False)		
 	title_add_form = TitleAddForm()	
+	classify_id=classify_id
 	return (title_add_form,
+			classify_id,
 			title_pagination)
 
 
@@ -37,12 +35,13 @@ def title_area(classify_id, title_page):
 @login_required
 def note():	
 	classify_add_form, classify_pagination = classify_area(classify_page=1)
-	title_add_form, title_pagination = title_area(classify_id = None, title_page = 1)
+	title_add_form, classify_id, title_pagination = title_area(classify_id = None, title_page = 1)
 	content_form = None							
 	return render_template('note.html',
 							classify_add_form = classify_add_form,
 							classify_pagination = classify_pagination,
 							title_add_form = title_add_form,
+							classify_id = classify_id,
 							title_pagination = title_pagination,
 							content_form = content_form)
 	
@@ -100,9 +99,10 @@ def title():
 		db.session.commit()
 	title_page = request.values.get('title_page_id', default=1, type=int)
 	#必须放在最后，否则不是删除或者增加后的查询结果
-	title_add_form, title_pagination = title_area(classify_id, title_page)
+	title_add_form, classify_id, title_pagination = title_area(classify_id, title_page)
 	return render_template('title.html',
 							title_add_form = title_add_form,
+							classify_id = classify_id,
 							title_pagination = title_pagination)
 
 

@@ -31,19 +31,20 @@
 $(document).ready(function(){
   //禁用缓存，以获取修改后的结果
   $.ajaxSetup({cache: false});
+  
   //删除分类
   $("div#classify_div").on("click","a#classify_del",function(){
 	  var conf_del = confirm("删除分类将删除该分类的所有文章！\n\n确认删除？");
 	  if (conf_del){
-		  $.post("/note/classify",{classify_del_id:$(this).val(),page_id:$("li#classify_active").val()},function(data,status){		  
+		  $.post("/note/classify",{classify_del_id:$(this).val(),classify_page_id:$("li#classify_active").val()},function(data,status){		  
 			  $("div#classify_table").remove();
 			  $("div#classify_div").html(data);			 
-			  });
-			  //load方法刚开始有延迟，后面的会有闪烁	
-			  //~ $("div#table_div").remove();	 
-			  //~ $("div#classify").load("/note/classify",{del_id:$(this).val()}); 
-		  };							  
-	  });
+		  });
+	  //load方法刚开始有延迟，后面的会有闪烁	
+	  //~ $("div#table_div").remove();	 
+	  //~ $("div#classify").load("/note/classify",{del_id:$(this).val()}); 
+	  };							  
+  });
   //添加分类
   //click方法无法阻止回车键提交表单
   //$("input#add_submit").click(function(event){
@@ -60,19 +61,39 @@ $(document).ready(function(){
 	  $.post("/note/classify", classify_add_form, function(data,status){
 		  $("div#classify_table").remove();
 		  $("div#classify_div").html(data);
-		  });
-	  });	
-  //选择分类，添加背景色
+	  });
+  });	
+  //当前分类添加背景色
   $("div#classify_div").on("click","tr#classify_tr",function(){
 	  $(this).addClass("info").siblings().removeClass("info");
   });
-  //选择分页
+  //分类区域的分页
   $("div#classify_div").on("click","a#classify_page",function(event){
-	  $.post("/note/classify",{classify_page_id:$(this).val()},function(data,status){		  
+	  $.post("/note/classify",{classify_page_id:$(this).val()},function(data,status){
 		  $("div#classify_table").remove();
-		  $("div#classify_div").html(data);			 
-		  });	  
-  });  	   
+		  $("div#classify_div").html(data);
+	  });
+  });
+  //选择分类打开日记
+  $("div#classify_div").on("click","a#classify_name",function(event){
+	  $.post("/note/title",{classify_id:$(this).val()},function(data,status){
+		  $("div#title_table").remove();
+		  $("div#title_div").html(data);
+	  });
+  }); 
+   
+  //添加标题
+  $("div#title_div").on("submit","form#title_add",function(event){
+	  event.preventDefault();
+	  $("div#title_add").modal("hide"); 
+	  var title_add_form=$(this).serialize()+"$classify_id="+$("div#title_table").val();			  
+	  $.post("/note/title", title_add_form, function(data,status){
+		  alert(title_add_form)
+		  $("div#title_table").remove();
+		  $("div#title_div").html(data);
+	  });
+  });    
+	   
 });
 </script>
 {% endblock %}

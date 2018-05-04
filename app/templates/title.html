@@ -1,7 +1,7 @@
 
 {% import "bootstrap/wtf.html" as wtf %}
 
-<div id="classify_table">
+<div id="title_table" value="{{ classify_id }}">
 	<table class="table table-hover" style="max-width:350px">
 		<thead>
 			<tr class="active">
@@ -34,19 +34,19 @@
 			</tr>
 		</thead>
 		<tbody>				
-		{% for p in classify_pagination.items %}
-			<tr id="classify_tr" class="active">											
+		{% for p in title_pagination.items %}
+			<tr id="title_tr" class="active">											
 				<td style="width:320px">					
-					<a id="classify_name" style="color:black;cursor:pointer;text-decoration:none;" value="{{ p.id }}" title="查看分类">
+					<a id="title_name" style="color:black;cursor:pointer;text-decoration:none;" value="{{ p.id }}" title="查看分类">
 						{{ p.classify_name }}
 					</a>					
 				</td>										
 				<td>
-					<a id="classify_edit" style="cursor:pointer;" value="{{ p.id }}" title="修改分类名">
+					<a id="title_edit" style="cursor:pointer;" value="{{ p.id }}" title="修改分类名">
 						<span class="glyphicon glyphicon-edit"></span>
 					</a>
 					&nbsp;&nbsp;																
-					<a id="classify_del" style="cursor:pointer;" value="{{ p.id }}" title="删除分类">
+					<a id="title_del" style="cursor:pointer;" value="{{ p.id }}" title="删除分类">
 						<span class="glyphicon glyphicon-trash"></span>
 					</a>																
 				</td>				
@@ -56,19 +56,19 @@
 				<td colspan=2>
 					<ul class="pagination">
 						<li>
-							<a id="classify_page" style="cursor:pointer;" value="{{ classify_pagination.page-1 }}" title="上一页">
+							<a id="title_page" style="cursor:pointer;" value="{{ title_pagination.page-1 }}" title="上一页">
 								&lt;
 							</a>
 						</li>
-						{% for p in classify_pagination.iter_pages(left_edge=1,left_current=1,right_current=2,right_edge=1) %}
+						{% for p in title_pagination.iter_pages(left_edge=1,left_current=1,right_current=2,right_edge=1) %}
 						{% if p %}
-							{% if p == classify_pagination.page %}
-								<li id="classify_active" class="active" value="{{ p }}">
-									<a id="classify_page" value="{{ p }}" style="cursor:pointer;" title="当前页">{{ p }}</a>
+							{% if p == title_pagination.page %}
+								<li id="title_active" class="active" value="{{ p }}">
+									<a id="title_page" value="{{ p }}" style="cursor:pointer;" title="当前页">{{ p }}</a>
 								</li>
 							{% else %}
 								<li>
-									<a id="classify_page" value="{{ p }}" style="cursor:pointer;" title="第{{ p }}页">{{ p }}</a>
+									<a id="title_page" value="{{ p }}" style="cursor:pointer;" title="第{{ p }}页">{{ p }}</a>
 								</li>
 							{% endif %}
 						{% else %}
@@ -76,7 +76,7 @@
 						{% endif %}
 						{% endfor %}
 						<li>
-							<a id="classify_page" style="cursor:pointer;" value="{{ classify_pagination.page+1 }}" title="下一页">
+							<a id="title_page" style="cursor:pointer;" value="{{ title_pagination.page+1 }}" title="下一页">
 								&gt;
 							</a>
 						</li>
