@@ -2,6 +2,9 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
 <div id="title_table" value="{{ classify_id }}">
+	{% if title_area %}
+	{{ title_area }}
+	{% else %}
 	<table class="table table-hover" style="max-width:350px">
 		<thead>
 			<tr class="active">
@@ -35,18 +38,18 @@
 		</thead>
 		<tbody>				
 		{% for p in title_pagination.items %}
-			<tr id="title_tr" class="active">											
+			<tr id="classify_id" class="active" value="{{ p.classify_id }}">											
 				<td style="width:320px">					
 					<a id="title_name" style="color:black;cursor:pointer;text-decoration:none;" value="{{ p.id }}" title="查看分类">
-						{{ p.classify_name }}
+						{{ p.note_title }}
 					</a>					
 				</td>										
 				<td>
-					<a id="title_edit" style="cursor:pointer;" value="{{ p.id }}" title="修改分类名">
+					<a id="title_edit" style="cursor:pointer;" value="{{ p.id }}" title="修改标题">
 						<span class="glyphicon glyphicon-edit"></span>
 					</a>
 					&nbsp;&nbsp;																
-					<a id="title_del" style="cursor:pointer;" value="{{ p.id }}" title="删除分类">
+					<a id="title_del" style="cursor:pointer;" value="{{ p.id }}" title="删除日记">
 						<span class="glyphicon glyphicon-trash"></span>
 					</a>																
 				</td>				
@@ -84,6 +87,7 @@
 				</td>				
 			</tr>
 	</table>
+	{% endif %}
 </div>		
 
 

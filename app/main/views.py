@@ -18,34 +18,6 @@ def classify_area(classify_page):
 			classify_pagination)
 
 
-#标题区域：[添加标题表单,所有标题的分页对象]
-def title_area(classify_id, title_page):				
-	title_pagination = Note.query.filter_by(
-		classify_id=classify_id).order_by(
-		Note.id.desc()).paginate(
-		title_page, per_page=10,error_out=False)		
-	title_add_form = TitleAddForm()	
-	classify_id=classify_id
-	return (title_add_form,
-			classify_id,
-			title_pagination)
-
-
-@main.route('/note', methods=['GET', 'POST'])
-@login_required
-def note():	
-	classify_add_form, classify_pagination = classify_area(classify_page=1)
-	title_add_form, classify_id, title_pagination = title_area(classify_id = None, title_page = 1)
-	content_form = None							
-	return render_template('note.html',
-							classify_add_form = classify_add_form,
-							classify_pagination = classify_pagination,
-							title_add_form = title_add_form,
-							classify_id = classify_id,
-							title_pagination = title_pagination,
-							content_form = content_form)
-	
-
 @main.route('/note/classify', methods=['GET', 'POST'])
 @login_required
 def classify():
@@ -69,14 +41,25 @@ def classify():
 		classify_add.user_id = user_id
 		db.session.add(classify_add)
 		db.session.commit()	
+	#生成分类区域，必须放在最后，否则不是删除或者增加后的查询结果
 	classify_page = request.values.get('classify_page_id', default=1, type=int)
-	#必须放在最后，否则不是删除或者增加后的查询结果
 	classify_add_form, classify_pagination = classify_area(classify_page)
 	return render_template('classify.html',
 							classify_add_form = classify_add_form,
 							classify_pagination = classify_pagination)
 							
 
+#标题区域：[添加标题表单,所有标题的分页对象]
+def title_area(classify_id, title_page):			
+	title_pagination = Note.query.filter_by(
+		classify_id=classify_id).order_by(
+		Note.id.desc()).paginate(
+		title_page, per_page=10,error_out=False)		
+	title_add_form = TitleAddForm()	
+	return (title_add_form,
+			title_pagination)
+			
+			
 @main.route('/note/title', methods=['GET', 'POST'])
 @login_required
 def title():
@@ -91,22 +74,36 @@ def title():
 	title_add_form = TitleAddForm()
 	classify_id = request.values.get('classify_id')
 	title_add_name = request.values.get('title_add_name')
-	if title_add_name and title_add_form.validate_on_submit():	
+	if classify_id and title_add_name and title_add_form.validate_on_submit():	
 		title_add = Note()
 		title_add.note_title = title_add_name
 		title_add.classify_id = classify_id
 		db.session.add(title_add)
 		db.session.commit()
+	#生成标题区域，必须放在最后，否则不是删除或者增加后的查询结果	
 	title_page = request.values.get('title_page_id', default=1, type=int)
-	#必须放在最后，否则不是删除或者增加后的查询结果
-	title_add_form, classify_id, title_pagination = title_area(classify_id, title_page)
+	title_add_form, title_pagination = title_area(classify_id, title_page)
+	title_add_form.classify_id.data = classify_id
 	return render_template('title.html',
 							title_add_form = title_add_form,
-							classify_id = classify_id,
 							title_pagination = title_pagination)
 
 
-
+#首页：分类第一页，标题区域空，内容区域空
+@main.route('/note', methods=['GET', 'POST'])
+@login_required
+def note():	
+	classify_add_form, classify_pagination = classify_area(classify_page=1)
+	#~ 标题区域空
+	#~ title_add_form, title_pagination = title_area(classify_id = None, title_page = 1)
+	title_area = '请选择分类'
+	#~ 内容区域空
+	content_area = '请选择分类和日记'						
+	return render_template('note.html',
+							classify_add_form = classify_add_form,
+							classify_pagination = classify_pagination,
+							title_area = title_area,
+							content_area = content_area)
 
 
 
