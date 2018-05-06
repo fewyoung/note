@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, HiddenField, FormField, FieldList
+from wtforms import StringField, SubmitField, HiddenField, TextAreaField
 from wtforms.validators import InputRequired, ValidationError, Length
 #~ from flask import flash
 			
@@ -21,7 +21,9 @@ class TitleAddForm(FlaskForm):
 	title_add_submit = SubmitField('确定')
 	
 			
-						
+class ContentAddForm(FlaskForm):
+	title_id = HiddenField('标题名')
+	content_text = TextAreaField('内容') 						
 			
 			
 			

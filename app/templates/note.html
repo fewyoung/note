@@ -18,6 +18,10 @@
 					<div id="title_div">
 						{% include 'title.html' %}	
 				</td>
+				<td>
+					<div id="content_div">
+						{% include 'content.html' %}	
+				</td>				
 			</tr>
 		</tbody>
 	</table>
@@ -96,7 +100,7 @@ $(document).ready(function(){
   $("div#title_div").on("click","a#title_del",function(){
 	  var conf_del = confirm("删除日记将无法恢复！\n\n确认删除？");
 	  if (conf_del){
-		  $.post("/note/title",{title_del_id:$(this).val(),title_page_id:$("li#title_active").val()},function(data,status){		  
+		  $.post("/note/title",{title_del_id:$(this).val(),classify_id:$("tr#classify_id").val(),title_page_id:$("li#title_active").val()},function(data,status){		  
 			  $("div#title_table").remove();
 			  $("div#title_div").html(data);			 
 		  });

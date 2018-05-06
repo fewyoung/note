@@ -1,5 +1,5 @@
 from . import main
-from .forms import CalssifyAddForm, TitleAddForm
+from .forms import CalssifyAddForm, TitleAddForm, ContentAddForm
 from flask import render_template, request, redirect, url_for#~ from flask import session, flash
 from flask_login import login_required, current_user
 from ..models import db, Classify, Note
@@ -106,7 +106,12 @@ def note():
 							content_area = content_area)
 
 
-
+@main.route('/note/content', methods=['GET', 'POST'])
+@login_required
+def content():
+	content_add_form = ContentAddForm()
+	return render_template('content.html', content_add_form = content_add_form)
+		
 
 
 
