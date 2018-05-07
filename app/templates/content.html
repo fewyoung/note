@@ -1,4 +1,26 @@
 
 {% import "bootstrap/wtf.html" as wtf %}
 
-{{ wtf.quick_form(content_add_form) }}
+<div id="content_table" value="{{ classify_id }}">
+	{% if content_area %}
+	{{ content_area }}
+	{% else %}
+	<table class="table table-hover" style="max-width:350px">
+		<thead>
+			<tr>
+				<th>	
+					保存
+				</th>		
+		</thead>
+		<tbody>				
+			<tr id="" class="active" value="">											
+				<td style="width:320px">					
+					{{ wtf.quick_form(content_add_form) }}																
+				</td>				
+			</tr>		
+	</table>
+	{% endif %}
+</div>		
+
+
+

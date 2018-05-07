@@ -98,7 +98,7 @@ def note():
 	#~ title_add_form, title_pagination = title_area(classify_id = None, title_page = 1)
 	title_area = '请选择分类'
 	#~ 内容区域空
-	content_area = '请选择分类和日记'						
+	content_area = '请选择分类和笔记'						
 	return render_template('note.html',
 							classify_add_form = classify_add_form,
 							classify_pagination = classify_pagination,
