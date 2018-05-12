@@ -5,7 +5,7 @@ from flask_login import login_required, current_user
 from ..models import db, Classify, Note
 
 
-#分类区域：[添加分类表单,所有分类的分页对象]
+#分类区域：（添加分类表单,所有分类的分页对象）
 def classify_area(classify_page):		
 	user_id = current_user.get_id()					
 	#分页对象	
@@ -17,7 +17,7 @@ def classify_area(classify_page):
 	return (classify_add_form,
 			classify_pagination)
 
-
+#分类区域路由
 @main.route('/note/classify', methods=['GET', 'POST'])
 @login_required
 def classify():
@@ -49,7 +49,7 @@ def classify():
 							classify_pagination = classify_pagination)
 							
 
-#标题区域：[添加标题表单,所有标题的分页对象]
+#标题区域：（添加标题表单,所有标题的分页对象）
 def title_area(classify_id, title_page):			
 	title_pagination = Note.query.filter_by(
 		classify_id=classify_id).order_by(
@@ -59,7 +59,7 @@ def title_area(classify_id, title_page):
 	return (title_add_form,
 			title_pagination)
 			
-			
+#标题区域路由			
 @main.route('/note/title', methods=['GET', 'POST'])
 @login_required
 def title():
@@ -89,6 +89,23 @@ def title():
 							title_pagination = title_pagination)
 
 
+#内容区域：（保存内容表单）
+def content_area(title_id):			
+	note = Note.query.filter_by(id = title_id).first()		
+	content_add_form = ContentAddForm()	
+	content_add_form.title_id = title_id
+	content_add_form.content_text.data = note.note_content
+	return content_add_form
+			
+#内容区域路由
+@main.route('/note/content', methods=['GET', 'POST'])
+@login_required
+def content():
+	title_id = request.values.get('title_id')
+	content_add_form = content_area(title_id)
+	return render_template('content.html', content_add_form = content_add_form)
+
+
 #首页：分类第一页，标题区域空，内容区域空
 @main.route('/note', methods=['GET', 'POST'])
 @login_required
@@ -106,11 +123,7 @@ def note():
 							content_area = content_area)
 
 
-@main.route('/note/content', methods=['GET', 'POST'])
-@login_required
-def content():
-	content_add_form = ContentAddForm()
-	return render_template('content.html', content_add_form = content_add_form)
+
 		
 
 

@@ -13,7 +13,7 @@ class CalssifyAddForm(FlaskForm):
 					
 
 class TitleAddForm(FlaskForm):
-	classify_id = HiddenField('分类名')
+	classify_id = HiddenField('分类id')
 	title_add_name = StringField('标题名', 
 		validators=[InputRequired(message='标题名不能为空'),
 					Length(max=20,message='标题名不能超过20字符'),], 
@@ -22,6 +22,7 @@ class TitleAddForm(FlaskForm):
 	
 			
 class ContentAddForm(FlaskForm):
+	title_id = HiddenField('标题id')
 	content_add_submit = SubmitField('保存')
 	content_text = TextAreaField('内容') 						
 			

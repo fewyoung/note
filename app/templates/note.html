@@ -115,7 +115,7 @@ $(document).ready(function(){
   });
   //选择标题打开内容
   $("div#title_div").on("click","a#title_name",function(event){
-	  $.post("/note/content",{classify_id:$("tr#classify_id").val() ,title_id:$(this).val()},function(data,status){
+	  $.post("/note/content",{title_id:$(this).val()},function(data,status){
 		  $("div#content_table").remove();
 		  $("div#content_div").html(data);
 	  });
