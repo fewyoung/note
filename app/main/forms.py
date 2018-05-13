@@ -22,6 +22,7 @@ class TitleAddForm(FlaskForm):
 	
 			
 class ContentAddForm(FlaskForm):
+	classify_id = HiddenField('分类id')
 	title_id = HiddenField('标题id')
 	content_add_submit = SubmitField('保存')
 	content_text = TextAreaField('内容') 						

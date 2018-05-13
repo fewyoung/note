@@ -90,8 +90,13 @@ def title():
 
 
 #内容区域：（保存内容表单）
-def content_area(title_id):			
-	note = Note.query.filter_by(id = title_id).first()		
+def content_area(title_id):		
+	note = Note.query.filter_by(id = title_id).first()	
+	content_text = request.values.get('content_text')	
+	if content_text:
+		note.note_content = content_text
+		db.session.add(note)
+		db.session.commit()	
 	content_add_form = ContentAddForm()	
 	content_add_form.title_id = title_id
 	content_add_form.content_text.data = note.note_content

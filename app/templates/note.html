@@ -119,7 +119,17 @@ $(document).ready(function(){
 		  $("div#content_table").remove();
 		  $("div#content_div").html(data);
 	  });
-  });   
+  }); 
+  //保存内容
+  $("div#content_div").on("submit","form#content_add_form",function(event){
+	  event.preventDefault();
+	  var content_add_form=$(this).serialize();			  
+	  $.post("/note/content", content_add_form, function(data,status){
+		  $("div#content_table").remove();
+		  $("div#content_div").html(data);
+		  alert("保存笔记成功！")
+	  });
+  });  
   
   	   
 });
