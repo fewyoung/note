@@ -12,7 +12,12 @@ def classify_area(classify_page):
 	classify_pagination = Classify.query.filter_by(
 		user_id=user_id).order_by(
 		Classify.id.desc()).paginate(
-		classify_page, per_page=10,error_out=False)
+		classify_page, per_page=10, error_out=False)
+	if not classify_pagination.items:
+		classify_pagination = Classify.query.filter_by(
+			user_id=user_id).order_by(
+			Classify.id.desc()).paginate(
+			classify_page-1, per_page=10,error_out=False)
 	classify_add_form = CalssifyAddForm()	
 	return (classify_add_form,
 			classify_pagination)
@@ -54,7 +59,12 @@ def title_area(classify_id, title_page):
 	title_pagination = Note.query.filter_by(
 		classify_id=classify_id).order_by(
 		Note.id.desc()).paginate(
-		title_page, per_page=10,error_out=False)		
+		title_page, per_page=10, error_out=False)
+	if not title_pagination.items:
+		title_pagination = Note.query.filter_by(
+			classify_id=classify_id).order_by(
+			Note.id.desc()).paginate(
+			title_page-1, per_page=1, error_out=False)						
 	title_add_form = TitleAddForm()	
 	return (title_add_form,
 			title_pagination)

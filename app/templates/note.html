@@ -44,22 +44,18 @@ $(document).ready(function(){
 			  $("div#classify_table").remove();
 			  $("div#classify_div").html(data);			 
 		  });
-	  //load方法刚开始有延迟，后面的会有闪烁	
-	  //~ $("div#table_div").remove();	 
-	  //~ $("div#classify").load("/note/classify",{del_id:$(this).val()}); 
+	  //load方法刚开始有延迟，后面的会有闪烁：
+	  //$("div#table_div").remove();	$("div#classify").load("/note/classify",{del_id:$(this).val()}); 
 	  };							  
   });
   //添加分类
-  //click方法无法阻止回车键提交表单
-  //$("input#add_submit").click(function(event){
-  //submit方法不能给未来元素绑定方法	  
+  //click方法无法阻止回车键提交表单：$("input#add_submit").click(function(event){
+  //submit方法不能给未来元素绑定方法：$("input#add_submit").submit(function(event){	  
   $("div#classify_div").on("submit","form#classify_add",function(event){
 	  event.preventDefault();
 	  $("div#classify_add").modal("hide");
-	  //IE低版本不支持FormData
-	  //var  form_add = new FormData($("form#form_add")[0]); 
-	  //只提交数据，不会经过validate
-	  //$.post("/note/classify",{add_name:$("input#add_name").val()},function(data,status){
+	  //IE低版本不支持FormData：var  form_add = new FormData($("form#form_add")[0]); 
+	  //只提交数据，不会经过validate：$.post("/note/classify",{add_name:$("input#add_name").val()},function(data,status){
 	  //提交整个表单 
 	  var classify_add_form=$(this).serialize();		  
 	  $.post("/note/classify", classify_add_form, function(data,status){
@@ -67,7 +63,7 @@ $(document).ready(function(){
 		  $("div#classify_div").html(data);
 	  });
   });	
-  //当前分类添加背景色
+  //当前分类添加背景色，其他去除背景色
   $("div#classify_div").on("click","tr#classify_tr",function(){
 	  $(this).addClass("info").siblings().removeClass("info");
   });
