@@ -10,3 +10,7 @@
 UEditor
 
 删除分类同时删除分类下所有笔记
+
+ajax的load和html区别
+
+request.values.get()和json数据区别
